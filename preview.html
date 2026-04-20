@@ -1,0 +1,213 @@
+<!-- сайт створено студенткою Шевченко Анастасією, група ФТБ 4-9 -->
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Франшизи в Україні</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #f5f7fa;
+}
+
+/* 🔹 меню */
+nav {
+    background: #333;
+    padding: 15px;
+    text-align: center;
+}
+
+nav a {
+    color: white;
+    margin: 10px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+header {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.container {
+    max-width: 900px;
+    margin: 30px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-top: 15px;
+}
+
+select, input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    background: #667eea;
+    color: white;
+    border: none;
+}
+
+.result {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+/* 🔹 товари */
+.products div {
+    background: #f9fafb;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🔹 меню -->
+<nav>
+    <a href="#calc">Калькулятор</a>
+    <a href="#shop">Товари</a>
+    <a href="#form">Заявка</a>
+    <a href="#author">Автор</a>
+</nav>
+
+<header>
+    <h1>Франшизи в Україні</h1>
+</header>
+
+<div class="container">
+
+<!-- 🔥 КАЛЬКУЛЯТОР -->
+<h2 id="calc">Калькулятор франшизи</h2>
+
+<label>Тип франшизи:</label>
+<select id="franchise" onchange="showInfo()">
+    <option value="0">-- Оберіть --</option>
+    <option value="60000" data-info="Кав'ярня">Кав'ярня</option>
+    <option value="90000" data-info="Фастфуд">Фастфуд</option>
+    <option value="40000" data-info="Магазин">Магазин</option>
+</select>
+
+<label>Місто:</label>
+<select id="city">
+    <option value="0">-- Оберіть --</option>
+    <option value="30000">Київ</option>
+    <option value="20000">Львів</option>
+    <option value="10000">Біла Церква</option>
+</select>
+
+<div id="info"></div>
+
+<button onclick="calculate()">Розрахувати</button>
+
+<div class="result" id="result"></div>
+
+<!-- 🔥 ГАЛЕРЕЯ ТОВАРІВ -->
+<h2 id="shop">Галерея товарів</h2>
+
+<div class="products">
+    <div>
+        Кавомашина — 20000 грн
+        <button onclick="add(20000)">Обрати</button>
+    </div>
+
+    <div>
+        Холодильник — 15000 грн
+        <button onclick="add(15000)">Обрати</button>
+    </div>
+
+    <div>
+        Меблі — 10000 грн
+        <button onclick="add(10000)">Обрати</button>
+    </div>
+</div>
+
+<h3>Сума: <span id="total">0</span> грн</h3>
+
+<!-- 🔥 ФОРМА -->
+<h2 id="form">Заявка</h2>
+
+<input type="text" id="name" placeholder="Ім'я">
+<input type="text" id="phone" placeholder="Телефон">
+
+<button onclick="submitForm()">Відправити</button>
+
+<p id="formResult"></p>
+
+<!-- 🔥 АВТОР -->
+<h2 id="author">Про автора</h2>
+<p>Шевченко Анастасія</p>
+<p>Група: ФТБ 4-9</p>
+
+</div>
+
+<footer>
+    Шевченко Анастасія | ФТБ 4-9
+</footer>
+
+<script>
+function showInfo() {
+    let select = document.getElementById("franchise");
+    let info = select.options[select.selectedIndex].getAttribute("data-info");
+    document.getElementById("info").innerText = info;
+}
+
+// калькулятор
+function calculate() {
+    let f = parseInt(document.getElementById("franchise").value);
+    let c = parseInt(document.getElementById("city").value);
+
+    if (f === 0 || c === 0) {
+        document.getElementById("result").innerText = "Оберіть все";
+        return;
+    }
+
+    let total = f + c + (f * 0.4);
+    document.getElementById("result").innerText = "Сума: " + total + " грн";
+}
+
+// товари
+let total = 0;
+
+function add(price) {
+    total += price;
+    document.getElementById("total").innerText = total;
+}
+
+// форма
+function submitForm() {
+    let name = document.getElementById("name").value;
+    let phone = document.getElementById("phone").value;
+
+    if (name === "" || phone === "") {
+        document.getElementById("formResult").innerText = "Заповніть поля";
+        return;
+    }
+
+    document.getElementById("formResult").innerText = "Заявка відправлена!";
+}
+</script>
+
+</body>
+</html>
